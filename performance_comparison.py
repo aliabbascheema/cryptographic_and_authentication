@@ -40,6 +40,8 @@ plt.close()
 # Report Template
 report_template = """
 # Cryptographic and Authentication Protocol Comparison
+# Test Environment: Intel i7-9750H CPU @ 2.60GHz, 16GB RAM
+# Network: Local test environment, 1Gbps connection
 
 ## Results
 - **Kerberos Authentication Time**: {{ kerberos_time }} seconds
