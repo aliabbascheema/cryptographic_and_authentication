@@ -37,11 +37,25 @@ def get_access_token():
     )
     return token
 
-# returning the generated token for testing purposes
-token = get_access_token()
-print(f"Access Token: {token}")
-
 # Testing get user details using OAuth2 session token generated
-oauth_session = OAuth2Session(client_id, token=token)
-response = oauth_session.get("https://api.github.com/user")
-print(response.json())
+def fetch_protected_resource(token):
+    """
+    Fetch a protected resource from an API using an OAuth2 access token. This function utilizes the provided token to authenticate and retrieve user information from the specified endpoint.
+
+    It creates an OAuth2 session with the given token and makes a GET request to the API. The response is then returned as a JSON object, allowing the caller to access the user data.
+
+    Args:
+        token (str): The OAuth2 access token used for authentication.
+
+    Returns:
+        dict: The JSON response containing user information from the API.
+
+    Raises:
+        requests.exceptions.RequestException: If the request to the API fails.
+    """
+    oauth = OAuth2Session(client_id, token=token)
+    response = oauth.get("https://api.github.com/user")
+    return response.json()
+
+user_info = fetch_protected_resource(get_access_token())
+print(f"User Info: {user_info}")
