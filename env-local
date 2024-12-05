@@ -1,0 +1,7 @@
+CLIENT_ID=<xxxx>
+CLIENT_SECRET=<xxxx>
+AUTHORIZATION_URL=https://github.com/login/oauth/authorize
+TOKEN_URL=https://github.com/login/oauth/access_token
+REDIRECT_URL=<Set the url address in your Oauth app >
+KRB5_SERVICE_PRINCIPAL=HTTP/localhost
+KRB5_KEYTAB_PATH=/etc/krb5.keytab
