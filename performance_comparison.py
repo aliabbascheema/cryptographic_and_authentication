@@ -19,11 +19,18 @@ token = get_access_token()
 user_info = fetch_protected_resource(token)
 oauth_time = time.time() - start_time
 
+# Format user info: If it's a dictionary, join the key-value pairs into a string
+if isinstance(user_info, dict):
+    formatted_user_info = '\n'.join([f"{key}: {value}" for key, value in user_info.items()])
+else:
+    # Handle case where user_info is not a dictionary (fallback)
+    formatted_user_info = user_info
+
 # Log results
 with open("results/results.txt", "w") as f:
     f.write(f"Kerberos Time: {kerberos_time:.2f}s\n")
     f.write(f"OAuth Time: {oauth_time:.2f}s\n")
-    f.write(f"OAuth User Info: {user_info}\n")
+    f.write(f"OAuth User Info:\n{formatted_user_info}\n")
 
 # Data for chart
 protocols = ['Kerberos', 'OAuth 2.0']
@@ -40,16 +47,14 @@ plt.close()
 # Report Template
 report_template = """
 # Cryptographic and Authentication Protocol Comparison
-# Test Environment: Intel i7-9750H CPU @ 2.60GHz, 16GB RAM
-# Network: Local test environment, 1Gbps connection
 
 ## Results
 - **Kerberos Authentication Time**: {{ kerberos_time }} seconds
 - **OAuth 2.0 Authentication Time**: {{ oauth_time }} seconds
 
 ## User Info from OAuth
-```json
-  {{ user_info }}
+```
+  {{ formatted_user_info }}
 ```
 ## Performance Chart
 ![Performance Chart](performance_chart.png)
@@ -59,7 +64,7 @@ report_template = """
 data = {
     "kerberos_time": kerberos_time,
     "oauth_time": oauth_time,
-    "user_info": user_info,
+    "formatted_user_info": formatted_user_info,
 }
 
 # Render the report
