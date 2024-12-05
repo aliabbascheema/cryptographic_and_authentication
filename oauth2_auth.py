@@ -11,6 +11,8 @@ token_url = os.getenv('TOKEN_URL')
 redirect_uri = os.getenv('REDIRECT_URL')
 
 # Function to automate OAuth flow
+
+
 def get_access_token():
     oauth = OAuth2Session(client_id, redirect_uri=redirect_uri)
     authorization_url, state = oauth.authorization_url(authorization_base_url)
@@ -21,5 +23,11 @@ def get_access_token():
     )
     return token
 
+
 token = get_access_token()
 print(f"Access Token: {token}")
+
+
+oauth_session = OAuth2Session(client_id, token=token)
+response = oauth_session.get("https://api.github.com/user")
+print(response.json())
