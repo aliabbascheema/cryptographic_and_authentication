@@ -1,5 +1,9 @@
 import subprocess
 import kerberos
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 def register_service_principal():
     """
@@ -16,8 +20,8 @@ def register_service_principal():
     Raises:
         subprocess.CalledProcessError: If the registration or keytab creation fails.
     """
-    principal = "HTTP/localhost"
-    keytab_path = "/etc/krb5.keytab"
+    principal = os.getenv('KRB5_SERVICE_PRINCIPAL', 'HTTP/localhost')
+    keytab_path = os.getenv('KRB5_KEYTAB_PATH', '/etc/krb5.keytab')
 
     try:
         print("Registering service principal...")
