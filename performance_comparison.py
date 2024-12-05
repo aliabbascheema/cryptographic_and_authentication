@@ -48,8 +48,9 @@ report_template = """
 - **OAuth 2.0 Authentication Time**: {{ oauth_time }} seconds
 
 ## User Info from OAuth
-{{ user_info }}
-
+```json
+  {{ user_info }}
+```
 ## Performance Chart
 ![Performance Chart](performance_chart.png)
 """
