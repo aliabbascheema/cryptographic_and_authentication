@@ -6,20 +6,6 @@ import os
 load_dotenv()
 
 def register_service_principal():
-    """
-    Register a service principal for Kerberos authentication and create a corresponding keytab file. This function automates the process of adding a service principal and generating a keytab, which is essential for secure service authentication.
-
-    It uses system commands to interact with the Kerberos administration tool, ensuring that the service principal is registered and the keytab is created at the specified path. The function handles potential errors during the registration process and provides feedback on the success or failure of the operations.
-
-    Args:
-        None
-
-    Returns:
-        None
-
-    Raises:
-        subprocess.CalledProcessError: If the registration or keytab creation fails.
-    """
     principal = os.getenv('KRB5_SERVICE_PRINCIPAL', 'HTTP/localhost')
     keytab_path = os.getenv('KRB5_KEYTAB_PATH', '/etc/krb5.keytab')
 
@@ -37,20 +23,6 @@ def register_service_principal():
 
 # Function to authenticate using Kerberos
 def authenticate_with_kerberos():
-    """
-    Authenticate a user with Kerberos using a specified service principal. This function initializes a Kerberos authentication context and generates a ticket token for the user.
-
-    It handles the authentication process by setting up the necessary context and steps to obtain a valid ticket token. If an error occurs during the authentication process, it captures and reports the error.
-
-    Args:
-        None
-
-    Returns:
-        None
-
-    Raises:
-        kerberos.GSSError: If there is an error during the Kerberos authentication process.
-    """
     service = "HTTP/localhost"
 
     try:
